@@ -1,10 +1,36 @@
 ﻿@model IEnumerable<cis237inclass6.Models.Car>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Car List";
 }
 
 <h2>Index</h2>
+
+<div class="form-group">
+    <fieldset>
+        <legend>Search Filter</legend>
+        @*Start the C# part to do the rendering of the html*@
+        @{ 
+            using (Html.BeginForm("Filter", "Cars", FormMethod.Post, new { @class = "form-inline" }))
+            {
+                @Html.AntiForgeryToken();
+
+                <label for="make">Make</label>
+                @Html.TextBox("make", (string)ViewBag.filterMake)
+
+                <label for="min">Minimum Cylinders</label>
+                @Html.TextBox("min",(string)ViewBag.filterMin)
+
+                <label for="max">Maximum Cylinders</label>
+                @Html.TextBox("max",(string)ViewBag.filterMax)
+                <br />
+                <input type="submit" value="Filter" class="btn btn-info pull-right" />           
+             }
+         }
+    </fieldset>
+</div>
+<br />
+<br />
 
 <p>
     @Html.ActionLink("Create New", "Create")
